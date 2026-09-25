@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "semantik-runtime-orchestrator"
+version = "1.0.0"
+description = "Independent fail-closed release orchestrator for SemantiK Architect RuntimeSets, coordinating Wordbench, SA validation, diagnostics, promotion, rollback, and activation."
+requires-python = ">=3.12"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "jsonschema>=4"]
+
+[project.scripts]
+semantik-runtime-orchestrator = "semantik_runtime_orchestrator.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

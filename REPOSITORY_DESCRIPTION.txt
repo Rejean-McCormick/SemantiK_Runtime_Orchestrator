@@ -1,0 +1,1 @@
+Independent, fail-closed release orchestrator for SemantiK Architect RuntimeSets. Coordinates GF Wordbench artifacts, SA conformance and validation, optional GF Observatory evidence, LevelUpDiag gates, transactional promotion, rollback, and activation without owning linguistic or semantic logic.

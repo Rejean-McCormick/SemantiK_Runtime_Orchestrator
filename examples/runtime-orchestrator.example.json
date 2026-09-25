@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0",
+  "release": {
+    "runtime_set_id": "sq-sa-core-1-2026.09.25",
+    "language": "sq",
+    "profile_id": "sa-core-1",
+    "concrete": "SAGrammarSqi",
+    "sa_version_range": ">=1.0,<2.0",
+    "contract_version": "1.0"
+  },
+  "inputs": {
+    "bridge": "runtime_inputs/sq/bridge.json",
+    "lexicon": "runtime_inputs/sq/lexicon.json",
+    "capability_profile": "runtime_inputs/sq/profile.json",
+    "conformance_suite": "runtime_inputs/sq/conformance.suite.json"
+  },
+  "runtime": {
+    "root": "../SemantiK_Architect/runtime",
+    "state_root": ".semantik-runtime-orchestrator",
+    "keep_staging": false
+  },
+  "wordbench": {
+    "run": "../GF_Wordbench/_runs/albanian/release_YYYYMMDD_HHMMSS",
+    "pgf_artifact": "SAGrammar.pgf"
+  },
+  "sa": {
+    "conformance": {
+      "cwd": "../SemantiK_Architect",
+      "command": [
+        "python",
+        "-m",
+        "semantik_architect.adapters.inbound.cli.main",
+        "--runtime-root",
+        "{candidate_runtime_root}",
+        "conformance",
+        "--suite",
+        "{suite}",
+        "--runtime-set-id",
+        "{runtime_set_id}",
+        "--output",
+        "{evidence}"
+      ]
+    },
+    "validate_runtime": {
+      "cwd": "../SemantiK_Architect",
+      "command": [
+        "python",
+        "-m",
+        "semantik_architect.adapters.inbound.cli.main",
+        "--runtime-root",
+        "{candidate_runtime_root}",
+        "validate-runtime",
+        "{runtime_set_id}"
+      ]
+    }
+  },
+  "levelupdiag": {
+    "required": true,
+    "cwd": "../LevelUpDiag_SemantiK_Architect",
+    "command": [
+      "python",
+      "levelupdiag.py",
+      "run",
+      "deep",
+      "--jobs",
+      "1"
+    ]
+  },
+  "observatory": {
+    "required": false,
+    "cwd": "../GF_Observatory",
+    "command": [
+      "python",
+      "-m",
+      "gf_observatory",
+      "ingest",
+      "{runtime_dir}"
+    ]
+  }
+}

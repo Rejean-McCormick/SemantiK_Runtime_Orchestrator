@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:semantik-runtime-orchestrator:schema:transaction-report:1.0",
+  "type": "object",
+  "required": ["schema_version", "transaction_id", "runtime_set_id", "language", "profile_id", "status", "stages"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "transaction_id": {"type": "string", "minLength": 1},
+    "runtime_set_id": {"type": "string", "minLength": 1},
+    "language": {"type": "string", "minLength": 1},
+    "profile_id": {"type": "string", "minLength": 1},
+    "status": {"enum": ["RUNNING", "READY_TO_ACTIVATE", "RELEASED", "FAIL"]},
+    "stages": {"type": "array", "items": {"type": "object"}}
+  }
+}
