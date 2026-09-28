@@ -1,29 +1,31 @@
-# Validation Report — SemantiK Runtime Orchestrator 1.0.0
+# Validation Report — SemantiK Runtime Orchestrator 1.1.0
 
-Validation date: 2026-09-25
+Validation date: 2026-09-27
 
 ## Result
 
-PASS for the independent orchestration core and packaging surface.
+PASS for independent orchestration, lexical contract validation, release pinning, and packaging surface.
 
 ## Verified
 
-- 20 automated tests pass.
-- Python source compiles with `py_compile`.
-- Wheel builds without network access or runtime dependencies.
-- The built wheel imports successfully from an isolated target directory.
-- CLI help executes successfully from the isolated wheel installation.
-- Config example validates against the JSON Schema.
-- Static boundary scan finds no imports from `semantik_architect`, `gf_wordbench`, or `levelupdiag`.
-- Static boundary scan finds no `shell=True` execution.
-- Required-gate failure rolls back a newly promoted RuntimeSet before activation.
-- Activation failure rolls back a newly promoted RuntimeSet.
-- Optional Observatory failure records WARN and does not claim authority over SA validity.
-- A runtime-root lock rejects concurrent promotion/activation transactions.
-- Existing RuntimeSet IDs are never overwritten.
-- Conformance evidence requires matching `runtime_set_id`, `language`, and `profile_id`.
-- `plan` performs no filesystem mutation.
+- 25 automated tests pass.
+- Python source/tests compile.
+- 2 orchestrator JSON schemas are valid Draft 2020-12 schemas.
+- Lexical artifact schema 1.0 remains accepted; v1.1 is admitted and validated.
+- Candidate `pipeline.lock.json` pins lexical precedence.
+- Released `runtime.manifest.json` pins the same lexical precedence.
+- Knowledge-only `lexeme_ref` records are rejected if declared executable bindings.
+- The orchestrator still imports no SemantiK Architect or GF Wordbench internals.
+- Existing release locking, atomic promotion, rollback, conformance identity and last-step activation behavior remain covered.
 
-## External qualification still required
+Default pinned lexical policy:
 
-This repository does not claim a real Albanian RuntimeSet release. A real release still requires a finalized GF Wordbench run containing the SA-compatible PGF plus reviewed SA bridge, lexical artifact, capability profile, conformance suite, and working public commands for the installed SA/LevelUpDiag/Observatory versions.
+`request_override > domain > project > wikidata > gf_generic`
+
+Wikidata Lexemes are lexical-knowledge authority; GF/RGL remains grammar/morphology authority and generic GF lexicons remain realization fallback.
+
+## Inventory
+
+- Python source modules: 15
+- Test modules: 8
+- JSON schemas: 2

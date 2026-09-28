@@ -38,7 +38,9 @@
         "--runtime-set-id",
         "{runtime_set_id}",
         "--output",
-        "{evidence}"
+        "{evidence}",
+        "--candidate-dir",
+        "{candidate_root}"
       ]
     },
     "validate_runtime": {

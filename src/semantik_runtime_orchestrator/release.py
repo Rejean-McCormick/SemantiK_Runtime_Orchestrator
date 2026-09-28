@@ -7,6 +7,7 @@ from typing import Any
 from .domain import CandidateBundle
 from .errors import OrchestratorError
 from .io import read_json, sha256_file, write_json_atomic
+from .lexical import validate_lexical_artifact
 
 
 def write_release_metadata(bundle: CandidateBundle, *, sa_version_range: str, contract_version: str) -> None:
@@ -15,6 +16,7 @@ def write_release_metadata(bundle: CandidateBundle, *, sa_version_range: str, co
         raise OrchestratorError("SRO-REL-001", "release", "Cannot release a runtime with failed conformance evidence.")
 
     evidence_name = bundle.evidence_path.name
+    lexical_policy = validate_lexical_artifact(read_json(bundle.lexicon_path, stage="release"))
     capabilities: dict[str, Any] = {
         "schema_version": "1.0",
         "manifest_id": f"cap-{bundle.runtime_set_id}",
@@ -48,6 +50,7 @@ def write_release_metadata(bundle: CandidateBundle, *, sa_version_range: str, co
         "runtime_set_id": bundle.runtime_set_id,
         "sa_version_range": sa_version_range,
         "sa_gf_contract_version": contract_version,
+        "lexical_policy": lexical_policy,
         "artifacts": artifacts,
         "capability_manifest_ref": cap_path.name,
         "capability_manifest_sha256": sha256_file(cap_path),

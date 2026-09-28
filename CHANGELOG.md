@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.0 — 2026-09-27
+
+- Added lexical artifact v1.1 validation while retaining v1.0 compatibility.
+- Pins explicit lexical-source precedence into candidate locks and RuntimeSet manifests.
+- Establishes Wikidata Lexemes as generic lexical knowledge authority and GF generic lexicons as realization fallback.
+- Rejects knowledge-only `lexeme_ref` entries when misdeclared as executable bindings.
+
 ## 1.0.0 — 2026-09-25
 
 - Extracted the runtime release pipeline from SemantiK Architect into an independent repository.

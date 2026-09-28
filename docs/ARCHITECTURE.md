@@ -50,3 +50,8 @@ The orchestrator never:
 - bypasses failed conformance;
 - shells command strings;
 - imports private implementation modules from connected repositories.
+
+
+## Lexical boundary
+
+Runtime releases pin lexical policy explicitly. Wikidata Lexemes are the default generic lexical knowledge authority; GF/RGL remains grammar/morphology authority, and generic GF lexical artifacts are realization fallback. The orchestrator validates/stages these artifacts but does not interpret linguistic meaning.

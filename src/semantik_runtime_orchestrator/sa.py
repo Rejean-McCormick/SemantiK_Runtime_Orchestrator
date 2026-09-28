@@ -36,6 +36,10 @@ def validate_evidence(path: Path, *, bundle: CandidateBundle, require_identity: 
     evidence = read_json(path, stage="conformance")
     if evidence.get("passed") is not True:
         raise OrchestratorError("SRO-SA-003", "conformance", "SA conformance evidence did not pass.", evidence)
+    if 'capability_profile' in evidence and 'profile_id' in evidence and evidence['capability_profile'] != evidence['profile_id']:
+        raise OrchestratorError('SRO-SA-005', 'conformance', 'Conflicting conformance profile identities.')
+    if 'profile_id' not in evidence and 'capability_profile' in evidence:
+        evidence = {**evidence, 'profile_id': evidence['capability_profile']}
     expected = {
         "runtime_set_id": bundle.runtime_set_id,
         "language": bundle.language,

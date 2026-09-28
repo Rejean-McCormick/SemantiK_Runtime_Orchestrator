@@ -14,6 +14,15 @@ The orchestrator stages the public SA RuntimeSet artifact shapes and invokes SA 
 
 `sa.validate_runtime.command` is mandatory and must exit zero only when the staged RuntimeSet satisfies the canonical SA release contract.
 
+
+## Lexical authority contract
+
+The orchestrator accepts lexical artifact schema `1.0` and `1.1`. It validates and pins an explicit lexical policy into every released RuntimeSet. The default is:
+
+`request_override > domain > project > wikidata > gf_generic`
+
+Wikidata Lexeme entries may be knowledge-only (`use_for=knowledge`, `binding_kind=lexeme_ref`). They are not executable GF expressions. GF generic entries may supply realization bindings for the same semantic reference without becoming the semantic dictionary authority. Equal-precedence semantic conflicts are resolved by SA fail-closed behavior, never artifact ordering.
+
 ## LevelUpDiag
 
 `levelupdiag.command` is optional. When configured and `required=true`, a non-zero exit rolls back the promoted-but-not-activated RuntimeSet.
@@ -27,3 +36,11 @@ The orchestrator stages the public SA RuntimeSet artifact shapes and invokes SA 
 Commands are arrays of argv tokens, never shell strings. Depending on stage, these placeholders are available:
 
 `{runtime_set_id}`, `{language}`, `{profile}`, `{profile_id}`, `{runtime_root}`, `{state_root}`, `{candidate_root}`, `{candidate_runtime_root}`, `{runtime_dir}`, `{suite}`, `{evidence}`, `{grammar}`, `{bridge}`, `{lexicon}`, `{capability_profile}`, `{transaction_report}`.
+
+## SA candidate conformance and Konstellation
+
+The current SA CLI accepts `conformance --suite {suite} --runtime-set-id {runtime_set_id} --candidate-dir {candidate_root} --output {evidence}`. The candidate runner checks pipeline.lock hashes and invokes the real GF adapter without marking the candidate RELEASED. Ordinary HTTP rendering remains restricted to released runtimes. Failure and invalid runtime validation return nonzero exit codes.
+
+Evidence may identify its profile as `capability_profile` (SA contract) or `profile_id` (orchestrator contract). If both exist they must agree. Runtime and language identity checks remain mandatory.
+
+`examples/konstellation-fr.json` points to sibling `semantik-architect/profiles/konstellation-explorer-1` resources. Set the Wordbench READY release directory before release. The example runtime ID matches its suite. Change them together when making a new immutable release. Optional diagnostics gates may be added using the standard configuration; no placeholder gate is silently executed.

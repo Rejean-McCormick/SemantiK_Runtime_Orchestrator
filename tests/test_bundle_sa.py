@@ -26,3 +26,12 @@ def test_evidence_identity_mismatch(tmp_path: Path):
     cfg=SAConfig(None,ev,ExternalCommand((sys.executable,"-c","pass")))
     with pytest.raises(OrchestratorError) as e: run_conformance(b,cfg)
     assert e.value.failure.code=="SRO-SA-005"
+
+def test_accepts_sa_capability_profile_identity(tmp_path):
+    b=make_bundle(tmp_path);ev=dump(tmp_path/'ev.json',{'passed':True,'runtime_set_id':'rt1','language':'sq','capability_profile':'sa-core-1'})
+    report,_=run_conformance(b,SAConfig(None,ev,ExternalCommand((sys.executable,'-c','pass'))))
+    assert report['profile_id']=='sa-core-1'
+
+def test_rejects_conflicting_profile_aliases(tmp_path):
+    b=make_bundle(tmp_path);ev=dump(tmp_path/'ev.json',{'passed':True,'runtime_set_id':'rt1','language':'sq','profile_id':'sa-core-1','capability_profile':'foreign-1'})
+    with pytest.raises(OrchestratorError):run_conformance(b,SAConfig(None,ev,ExternalCommand((sys.executable,'-c','pass'))))

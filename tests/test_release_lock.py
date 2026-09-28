@@ -22,3 +22,13 @@ def test_lock_excludes_second_transaction(tmp_path: Path):
         with pytest.raises(OrchestratorError) as e:
             with ReleaseLock(root,"b"): pass
         assert e.value.failure.code=="SRO-LOCK-001"
+
+
+def test_release_manifest_pins_lexical_policy(tmp_path: Path):
+    b = bundle(tmp_path)
+    manifest = json.loads((b.root / "runtime.manifest.json").read_text())
+    assert manifest["lexical_policy"]["precedence"] == [
+        "request_override", "domain", "project", "wikidata", "gf_generic"
+    ]
+    lock = json.loads((b.root / "pipeline.lock.json").read_text())
+    assert lock["lexical_policy"] == manifest["lexical_policy"]

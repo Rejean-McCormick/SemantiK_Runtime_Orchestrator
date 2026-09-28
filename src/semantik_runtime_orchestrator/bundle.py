@@ -8,6 +8,7 @@ from .domain import CandidateBundle, WordbenchRelease
 from .errors import OrchestratorError
 from .io import copy_verified, read_json, sha256_file, write_json_atomic
 from .wordbench import select_pgf
+from .lexical import validate_lexical_artifact
 
 
 def _require_keys(data: dict[str, object], keys: tuple[str, ...], *, label: str) -> None:
@@ -31,6 +32,10 @@ def validate_inputs(
     s = read_json(suite, stage="prepare")
     _require_keys(b, ("schema_version", "contract_version", "operations"), label="GF bridge spec")
     _require_keys(l, ("schema_version", "lexicon_id", "entries"), label="lexical artifact")
+    try:
+        validate_lexical_artifact(l)
+    except ValueError as exc:
+        raise OrchestratorError("SRO-IN-004", "prepare", f"Invalid lexical artifact: {exc}") from exc
     _require_keys(
         p,
         ("schema_version", "profile_id", "profile_version", "required_operations", "required_features", "required_block_kinds"),
@@ -46,8 +51,6 @@ def validate_inputs(
         )
     if not isinstance(b.get("operations"), dict) or not b["operations"]:
         raise OrchestratorError("SRO-IN-003", "prepare", "GF bridge must declare at least one operation.")
-    if not isinstance(l.get("entries"), list):
-        raise OrchestratorError("SRO-IN-004", "prepare", "Lexical artifact entries must be an array.")
     profile_id = p.get("profile_id")
     base_profile_id = re.sub(r"-\d+$", "", expected_profile_id)
     if isinstance(profile_id, str) and profile_id not in {expected_profile_id, base_profile_id}:
@@ -122,6 +125,7 @@ def prepare_candidate(
             "profile.json": sha256_file(profile_path),
             "conformance.suite.json": sha256_file(suite_path),
         },
+        "lexical_policy": validate_lexical_artifact(read_json(lexicon_path, stage="prepare")),
     }
     write_json_atomic(root / "pipeline.lock.json", lock)
     return CandidateBundle(
