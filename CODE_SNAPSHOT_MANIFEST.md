@@ -1,51 +1,52 @@
 # Code snapshot
 
-- generated_at: 2026-09-27T22:26:39.348595+00:00
+- generated_at: 2026-09-28T11:30:00-04:00
 - repository: SemantiK_Runtime_Orchestrator
-- release: 1.1.0
 - archive_layout: repository-relative paths
-- note: this manifest excludes itself from the hash list
 
 ## Snapshot files
-
-- `.gitignore` (159 bytes) sha256=411bca46da2ed72e398ce5c25fb2217258b3d46079240b5c8577dacc5f081f87
-- `CHANGELOG.md` (1203 bytes) sha256=e3a69193e87cfe9ed82b732aa502528bb2c96cc19f6926a6aec693aca0d8b5b4
-- `GitSink.bat` (781 bytes) sha256=15b0af32d211ff210de0ed87eb4b374cf41f9302d92baf82a464a518ffe2c97e
-- `README.md` (2358 bytes) sha256=2d5b5e8360109e8652d23e838e6b99c0b271a6883d76858c6da8d725b0f6c16f
-- `REPOSITORY_DESCRIPTION.txt` (297 bytes) sha256=e7e2fb01f3d3134b6ec6a08c25577aa546b2d12c008cd7a87354b4c7a0401806
-- `UPDATE-KONSTELLATION-2026-09-27.md` (440 bytes) sha256=1cb217271ee52e92662b2c33e19a71820e9e4f7f82382069c6b34a201d8d3662
-- `VALIDATION_REPORT.md` (1163 bytes) sha256=6f4a84365930523eb7ce85c202a7836866cab1ceaa191e4c73ec8c1fcb6f9c2e
-- `VERSION` (6 bytes) sha256=1575e1af4a95f12f70b4ee6a6adce8160953d93ea17dc2611b90883ccc3ad3b8
-- `docs/ARCHITECTURE.md` (2616 bytes) sha256=f9055d4ac1ff3812ca8b02b02dcb1da287dca07c5c1d8ad0b054b363d676d843
-- `docs/CONTRACTS.md` (3559 bytes) sha256=c69110a7408c49fcac865bcced9352863efc10b501fa8ed63be27974036d18a4
-- `docs/MIGRATION_FROM_EMBEDDED.md` (663 bytes) sha256=40000154b8fc0b078c2560234f871c2d7c1e36d3b8cd03f9d8ced5f78c39158e
-- `examples/konstellation-fr.json` (1743 bytes) sha256=93e1553ba39e765f67e0017c87bc785b92b16612691bc7889e4cb49022169db2
-- `examples/runtime-orchestrator.example.json` (1940 bytes) sha256=4b2a44b3bf692d3b3d1a18bd57f760b1c77775fae9c3a76a3059e5ec32e0f09e
-- `pyproject.toml` (659 bytes) sha256=1f5df3c29652901516d8b740ef232df57563c324d40b7a293f6ea52a37d08d66
-- `schemas/orchestrator-config.schema.json` (3766 bytes) sha256=3bc2d1785e359735ad058e9f33dbc15de262eca36550c549fc32f7d0166d2aca
-- `schemas/transaction-report.schema.json` (700 bytes) sha256=51a0ea5ef8129cfbaf51ee39484ae7c162871f1363ba2642c162b63a23473013
-- `src/semantik_runtime_orchestrator/__init__.py` (299 bytes) sha256=917243e44341a72ca6c493ba6bb282150bcb7f075233b454133770b94a12bd79
-- `src/semantik_runtime_orchestrator/bundle.py` (5140 bytes) sha256=75f88d6d2c2f4774d3144013c2016a8eca2de9ab90b0c219ee59c42a86c0832a
-- `src/semantik_runtime_orchestrator/cli.py` (2826 bytes) sha256=306431f5f2aac21a47688e20138f8d4960d9da670369f701499e5b9b4a91abd1
-- `src/semantik_runtime_orchestrator/config.py` (8039 bytes) sha256=467d44cbdb8f23f46080ab67bbab89382ce915c0b4a4a69897d97d5f7d42f75c
-- `src/semantik_runtime_orchestrator/domain.py` (1151 bytes) sha256=83c6ef8f3636105371950f3995726e9ef8faf6358e7c656aa93fe6a713ec04f4
-- `src/semantik_runtime_orchestrator/errors.py` (861 bytes) sha256=e9f03fada80e8d1a0dcc58867aa00fa39d84fdd4a7d88dcd3a335bc4ada79f86
-- `src/semantik_runtime_orchestrator/gates.py` (731 bytes) sha256=5d92951d84944dd942ce20a23189d182675dd9f1633bde795ed0093471522f3d
-- `src/semantik_runtime_orchestrator/io.py` (2810 bytes) sha256=29646604852e3e23971b4e4d8f7bd454bb7006c07558087c20940bf13fc42b9f
-- `src/semantik_runtime_orchestrator/lexical.py` (3560 bytes) sha256=e15a79f5b6e32048768313df029246d7ea5de8a0378c0beb18ad745cb52efaae
-- `src/semantik_runtime_orchestrator/locking.py` (2431 bytes) sha256=079b31fdbf7c0f22439e0bc795cd5b9f0b894422d76505e2808e818ed66ec2e9
-- `src/semantik_runtime_orchestrator/process.py` (1578 bytes) sha256=9970314efcbd96dd7ef190fe086865cfe9045f9bf7b684de6b4805be2d77453a
-- `src/semantik_runtime_orchestrator/release.py` (5254 bytes) sha256=b2c5a9cd27078e00fd6629e90c7a200670f17215d851d62449bfb20b6328a495
-- `src/semantik_runtime_orchestrator/sa.py` (4303 bytes) sha256=3cbd98b27e767f1e5b9bda981c66ae7dae98ab58ea2380d14713889ed7834714
-- `src/semantik_runtime_orchestrator/transaction.py` (9720 bytes) sha256=ae7aadf08ca0fb3a8f8a79cb00b6da132f0fc5a7578dc1986abc8ed475ef4a9a
-- `src/semantik_runtime_orchestrator/wordbench.py` (6545 bytes) sha256=01032aefff895d06ebf2278efac2bcdeac1566848ae10904ae54f73cefdf2db7
-- `tests/conftest.py` (195 bytes) sha256=40f33945e4cad926f9e69dee3ea053a92202de3e0154cd9fe7741b0773436b41
-- `tests/helpers.py` (1861 bytes) sha256=24f96e6ded96940f58bbfe9b1908027b8cb5676546e01c938e0dd413b913963e
-- `tests/test_boundaries.py` (724 bytes) sha256=883efe4b26daf523fc045618fd3074258c25722317374598b3bad6558cf163a4
-- `tests/test_bundle_sa.py` (2409 bytes) sha256=d4027a08a912f23079cf0f735d251062f23c35f174ca8adac0528c3bb5e3fa16
-- `tests/test_config_process.py` (1386 bytes) sha256=fc27a0e4256e1c12fa91fc0e4ca3eceb0447fa7ffa338fada92538898cc1b574
-- `tests/test_lexical_contract.py` (1272 bytes) sha256=05ba1db2f061b89d34d7b70a8bbb97256500eb147a638b161aca038696eea291
-- `tests/test_release_lock.py` (2128 bytes) sha256=98519c802de977bcee761e904afd9dc9f66354a79493ed73f067af2b3b9efc17
-- `tests/test_schemas.py` (377 bytes) sha256=fabf520d9c44fcbc58fa78ee9064f1ffe934f21a286390f96ab758ec3697e5da
-- `tests/test_transaction.py` (2788 bytes) sha256=83348b34a3e64822c7710d05f32d620294b71aca6b2917ee273dc7c5b19e9654
-- `tests/test_wordbench.py` (1142 bytes) sha256=9d8536ab99b0aba847a0a85a4b9ef4483657cb5b1830d88fb47de25e049ef608
+- `.gitignore` (159 bytes)
+- `.pytest_cache/.gitignore` (37 bytes)
+- `.pytest_cache/CACHEDIR.TAG` (191 bytes)
+- `.pytest_cache/README.md` (302 bytes)
+- `.pytest_cache/v/cache/nodeids` (1940 bytes)
+- `CHANGELOG.md` (1469 bytes)
+- `GitSink.bat` (781 bytes)
+- `README.md` (2093 bytes)
+- `REPOSITORY_DESCRIPTION.txt` (297 bytes)
+- `UPDATE-KONSTELLATION-2026-09-27.md` (440 bytes)
+- `VALIDATION_REPORT.md` (1315 bytes)
+- `VERSION` (6 bytes)
+- `docs/ARCHITECTURE.md` (2946 bytes)
+- `docs/CONTRACTS.md` (3842 bytes)
+- `docs/MIGRATION_FROM_EMBEDDED.md` (663 bytes)
+- `examples/konstellation-fr.json` (1708 bytes)
+- `examples/runtime-orchestrator.example.json` (1940 bytes)
+- `pyproject.toml` (659 bytes)
+- `schemas/orchestrator-config.schema.json` (5802 bytes)
+- `schemas/transaction-report.schema.json` (700 bytes)
+- `src/semantik_runtime_orchestrator/__init__.py` (299 bytes)
+- `src/semantik_runtime_orchestrator/bundle.py` (6628 bytes)
+- `src/semantik_runtime_orchestrator/cli.py` (2826 bytes)
+- `src/semantik_runtime_orchestrator/config.py` (9259 bytes)
+- `src/semantik_runtime_orchestrator/domain.py` (1151 bytes)
+- `src/semantik_runtime_orchestrator/errors.py` (861 bytes)
+- `src/semantik_runtime_orchestrator/gates.py` (731 bytes)
+- `src/semantik_runtime_orchestrator/io.py` (2810 bytes)
+- `src/semantik_runtime_orchestrator/lexical.py` (3560 bytes)
+- `src/semantik_runtime_orchestrator/locking.py` (2431 bytes)
+- `src/semantik_runtime_orchestrator/process.py` (1578 bytes)
+- `src/semantik_runtime_orchestrator/release.py` (5254 bytes)
+- `src/semantik_runtime_orchestrator/sa.py` (4303 bytes)
+- `src/semantik_runtime_orchestrator/transaction.py` (11040 bytes)
+- `src/semantik_runtime_orchestrator/wordbench.py` (6545 bytes)
+- `tests/conftest.py` (195 bytes)
+- `tests/helpers.py` (1861 bytes)
+- `tests/test_boundaries.py` (724 bytes)
+- `tests/test_bundle_sa.py` (2409 bytes)
+- `tests/test_config_process.py` (2012 bytes)
+- `tests/test_lexical_contract.py` (1272 bytes)
+- `tests/test_release_lock.py` (2128 bytes)
+- `tests/test_schemas.py` (377 bytes)
+- `tests/test_transaction.py` (3774 bytes)
+- `tests/test_wordbench.py` (1142 bytes)

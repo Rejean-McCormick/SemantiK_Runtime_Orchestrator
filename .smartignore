@@ -1,0 +1,7 @@
+# SemantiK Runtime Orchestrator - SmartSnap ignore
+# Versionnable dans Git, mais non nécessaire dans le snapshot de code courant.
+
+.smartignore
+
+# Métadonnées d'un snapshot antérieur.
+CODE_SNAPSHOT_MANIFEST.md

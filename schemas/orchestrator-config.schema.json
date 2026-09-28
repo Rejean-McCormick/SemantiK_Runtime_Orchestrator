@@ -2,104 +2,287 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:semantik-runtime-orchestrator:schema:config:1.0",
   "$defs": {
-    "argv": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "argv": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
     "command": {
       "type": "object",
-      "required": ["command"],
+      "required": [
+        "command"
+      ],
       "properties": {
-        "command": {"$ref": "#/$defs/argv"},
-        "cwd": {"type": "string", "minLength": 1},
-        "timeout_seconds": {"type": "integer", "minimum": 1}
+        "command": {
+          "$ref": "#/$defs/argv"
+        },
+        "cwd": {
+          "type": "string",
+          "minLength": 1
+        },
+        "timeout_seconds": {
+          "type": "integer",
+          "minimum": 1
+        }
       },
       "additionalProperties": false
     },
     "gate": {
       "type": "object",
-      "required": ["command"],
+      "required": [
+        "command"
+      ],
       "properties": {
-        "command": {"$ref": "#/$defs/argv"},
-        "cwd": {"type": "string", "minLength": 1},
-        "timeout_seconds": {"type": "integer", "minimum": 1},
-        "required": {"type": "boolean"}
+        "command": {
+          "$ref": "#/$defs/argv"
+        },
+        "cwd": {
+          "type": "string",
+          "minLength": 1
+        },
+        "timeout_seconds": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "required": {
+          "type": "boolean"
+        }
       },
       "additionalProperties": false
     }
   },
   "type": "object",
-  "required": ["schema_version", "release", "inputs", "runtime", "wordbench", "sa"],
+  "required": [
+    "schema_version",
+    "release",
+    "inputs",
+    "runtime",
+    "sa"
+  ],
   "properties": {
-    "schema_version": {"const": "1.0"},
+    "schema_version": {
+      "const": "1.0"
+    },
     "release": {
       "type": "object",
-      "required": ["runtime_set_id", "language", "profile_id", "concrete"],
+      "required": [
+        "runtime_set_id",
+        "language",
+        "profile_id",
+        "concrete"
+      ],
       "properties": {
-        "runtime_set_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"},
-        "language": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"},
-        "profile_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"},
-        "concrete": {"type": "string", "minLength": 1},
-        "sa_version_range": {"type": "string", "minLength": 1},
-        "contract_version": {"type": "string", "minLength": 1}
+        "runtime_set_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+        },
+        "language": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+        },
+        "profile_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+        },
+        "concrete": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sa_version_range": {
+          "type": "string",
+          "minLength": 1
+        },
+        "contract_version": {
+          "type": "string",
+          "minLength": 1
+        }
       },
       "additionalProperties": false
     },
     "inputs": {
       "type": "object",
-      "required": ["bridge", "lexicon", "capability_profile", "conformance_suite"],
+      "required": [
+        "bridge",
+        "lexicon",
+        "capability_profile",
+        "conformance_suite"
+      ],
       "properties": {
-        "bridge": {"type": "string", "minLength": 1},
-        "lexicon": {"type": "string", "minLength": 1},
-        "capability_profile": {"type": "string", "minLength": 1},
-        "conformance_suite": {"type": "string", "minLength": 1}
+        "bridge": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lexicon": {
+          "type": "string",
+          "minLength": 1
+        },
+        "capability_profile": {
+          "type": "string",
+          "minLength": 1
+        },
+        "conformance_suite": {
+          "type": "string",
+          "minLength": 1
+        }
       },
       "additionalProperties": false
     },
     "runtime": {
       "type": "object",
-      "required": ["root"],
+      "required": [
+        "root"
+      ],
       "properties": {
-        "root": {"type": "string", "minLength": 1},
-        "state_root": {"type": "string", "minLength": 1},
-        "keep_staging": {"type": "boolean"}
+        "root": {
+          "type": "string",
+          "minLength": 1
+        },
+        "state_root": {
+          "type": "string",
+          "minLength": 1
+        },
+        "keep_staging": {
+          "type": "boolean"
+        }
       },
       "additionalProperties": false
     },
     "wordbench": {
       "type": "object",
       "properties": {
-        "run": {"type": "string", "minLength": 1},
-        "command": {"$ref": "#/$defs/argv"},
-        "cwd": {"type": "string", "minLength": 1},
-        "out_root": {"type": "string", "minLength": 1},
-        "timeout_seconds": {"type": "integer", "minimum": 1},
-        "pgf_artifact": {"type": "string", "minLength": 1}
+        "run": {
+          "type": "string",
+          "minLength": 1
+        },
+        "command": {
+          "$ref": "#/$defs/argv"
+        },
+        "cwd": {
+          "type": "string",
+          "minLength": 1
+        },
+        "out_root": {
+          "type": "string",
+          "minLength": 1
+        },
+        "timeout_seconds": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "pgf_artifact": {
+          "type": "string",
+          "minLength": 1
+        }
       },
       "anyOf": [
-        {"required": ["run"]},
-        {"required": ["command", "out_root"]}
+        {
+          "required": [
+            "run"
+          ]
+        },
+        {
+          "required": [
+            "command",
+            "out_root"
+          ]
+        }
       ],
       "additionalProperties": false
     },
     "sa": {
       "type": "object",
-      "required": ["conformance", "validate_runtime"],
+      "required": [
+        "conformance",
+        "validate_runtime"
+      ],
       "properties": {
         "conformance": {
           "type": "object",
           "properties": {
-            "command": {"$ref": "#/$defs/argv"},
-            "cwd": {"type": "string", "minLength": 1},
-            "timeout_seconds": {"type": "integer", "minimum": 1},
-            "evidence": {"type": "string", "minLength": 1}
+            "command": {
+              "$ref": "#/$defs/argv"
+            },
+            "cwd": {
+              "type": "string",
+              "minLength": 1
+            },
+            "timeout_seconds": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "evidence": {
+              "type": "string",
+              "minLength": 1
+            }
           },
-          "anyOf": [{"required": ["command"]}, {"required": ["evidence"]}],
+          "anyOf": [
+            {
+              "required": [
+                "command"
+              ]
+            },
+            {
+              "required": [
+                "evidence"
+              ]
+            }
+          ],
           "additionalProperties": false
         },
-        "validate_runtime": {"$ref": "#/$defs/command"}
+        "validate_runtime": {
+          "$ref": "#/$defs/command"
+        }
       },
       "additionalProperties": false
     },
-    "levelupdiag": {"$ref": "#/$defs/gate"},
-    "observatory": {"$ref": "#/$defs/gate"}
+    "levelupdiag": {
+      "$ref": "#/$defs/gate"
+    },
+    "observatory": {
+      "$ref": "#/$defs/gate"
+    },
+    "grammar": {
+      "type": "object",
+      "required": [
+        "pgf"
+      ],
+      "properties": {
+        "pgf": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{64}$"
+        }
+      },
+      "additionalProperties": false
+    }
   },
-  "additionalProperties": false
+  "additionalProperties": false,
+  "oneOf": [
+    {
+      "required": [
+        "wordbench"
+      ],
+      "not": {
+        "required": [
+          "grammar"
+        ]
+      }
+    },
+    {
+      "required": [
+        "grammar"
+      ],
+      "not": {
+        "required": [
+          "wordbench"
+        ]
+      }
+    }
+  ]
 }

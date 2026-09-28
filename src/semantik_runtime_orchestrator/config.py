@@ -67,6 +67,12 @@ class WordbenchConfig:
 
 
 @dataclass(frozen=True, slots=True)
+class GrammarConfig:
+    pgf: Path
+    sha256: str | None = None
+
+
+@dataclass(frozen=True, slots=True)
 class SAConfig:
     conformance: ExternalCommand | None
     existing_evidence: Path | None
@@ -95,10 +101,11 @@ class OrchestratorConfig:
     runtime_root: Path
     state_root: Path
     keep_staging: bool
-    wordbench: WordbenchConfig
+    wordbench: WordbenchConfig | None
     sa: SAConfig
     levelupdiag: GateConfig | None
     observatory: GateConfig | None
+    grammar: GrammarConfig | None = None
 
     @classmethod
     def from_json(cls, path: str | Path) -> "OrchestratorConfig":
@@ -110,7 +117,14 @@ class OrchestratorConfig:
         release = _section(data, "release")
         inputs = _section(data, "inputs")
         runtime = _section(data, "runtime")
-        wb = _section(data, "wordbench")
+        wb_present = data.get("wordbench") is not None
+        grammar_present = data.get("grammar") is not None
+        if wb_present == grammar_present:
+            raise OrchestratorError(
+                "SRO-CFG-009", "config", "Configure exactly one grammar source: wordbench or grammar."
+            )
+        wb = _section(data, "wordbench", optional=True)
+        grammar_data = _section(data, "grammar", optional=True)
         sa = _section(data, "sa")
 
         runtime_set_id = _safe_id(release.get("runtime_set_id"), "release.runtime_set_id")
@@ -128,13 +142,24 @@ class OrchestratorConfig:
         state_root = _path(base, runtime.get("state_root", ".semantik-runtime-orchestrator"), "runtime.state_root")
         assert bridge and lexicon and profile and suite and runtime_root and state_root
 
-        wb_run = _path(base, wb.get("run"), "wordbench.run", optional=True)
-        wb_command = _external_command(base, wb.get("command"), wb.get("cwd"), wb.get("timeout_seconds"), "wordbench", optional=True)
-        wb_out_root = _path(base, wb.get("out_root"), "wordbench.out_root", optional=True)
-        if wb_run is None and (wb_command is None or wb_out_root is None):
-            raise OrchestratorError(
-                "SRO-CFG-006", "config", "Configure wordbench.run or both wordbench.command and wordbench.out_root."
-            )
+        wordbench = None
+        grammar = None
+        if wb_present:
+            wb_run = _path(base, wb.get("run"), "wordbench.run", optional=True)
+            wb_command = _external_command(base, wb.get("command"), wb.get("cwd"), wb.get("timeout_seconds"), "wordbench", optional=True)
+            wb_out_root = _path(base, wb.get("out_root"), "wordbench.out_root", optional=True)
+            if wb_run is None and (wb_command is None or wb_out_root is None):
+                raise OrchestratorError(
+                    "SRO-CFG-006", "config", "Configure wordbench.run or both wordbench.command and wordbench.out_root."
+                )
+            wordbench = WordbenchConfig(wb_run, wb_command, wb_out_root, wb.get("pgf_artifact") if isinstance(wb.get("pgf_artifact"), str) else None)
+        else:
+            pgf = _path(base, grammar_data.get("pgf"), "grammar.pgf")
+            assert pgf is not None
+            expected = grammar_data.get("sha256")
+            if expected is not None and (not isinstance(expected,str) or re.fullmatch(r"[0-9a-fA-F]{64}", expected) is None):
+                raise OrchestratorError("SRO-CFG-010", "config", "grammar.sha256 must be a 64-character hexadecimal SHA-256.")
+            grammar = GrammarConfig(pgf, expected.lower() if isinstance(expected,str) else None)
 
         conf = _section(sa, "conformance", optional=True)
         existing_evidence = _path(base, conf.get("evidence"), "sa.conformance.evidence", optional=True)
@@ -165,10 +190,11 @@ class OrchestratorConfig:
             runtime_root=runtime_root,
             state_root=state_root,
             keep_staging=bool(runtime.get("keep_staging", False)),
-            wordbench=WordbenchConfig(wb_run, wb_command, wb_out_root, wb.get("pgf_artifact") if isinstance(wb.get("pgf_artifact"), str) else None),
+            wordbench=wordbench,
             sa=SAConfig(conformance_command, existing_evidence, validate_command),
             levelupdiag=levelupdiag,
             observatory=observatory,
+            grammar=grammar,
         )
 
 

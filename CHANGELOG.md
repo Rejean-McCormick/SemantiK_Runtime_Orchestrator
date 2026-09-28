@@ -19,3 +19,10 @@
 - Added optional LevelUpDiag and GF Observatory gates.
 - Added read-only `plan` and config validation commands.
 - Added JSON schemas, migration guidance, tests, and packaging.
+
+
+## 1.1.1 — 2026-09-28
+
+- Added direct prebuilt-PGF release mode; Wordbench is no longer mandatory.
+- Preserved Wordbench release mode unchanged.
+- Direct PGF inputs are hash-verifiable and still pass through SA conformance, validation, promotion and activation.

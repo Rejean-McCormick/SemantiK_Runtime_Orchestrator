@@ -2,7 +2,7 @@ from pathlib import Path
 import json, sys
 import pytest
 from helpers import make_wordbench_run, make_inputs, dump
-from semantik_runtime_orchestrator.config import ExternalCommand, GateConfig, OrchestratorConfig, SAConfig, WordbenchConfig
+from semantik_runtime_orchestrator.config import ExternalCommand, GateConfig, GrammarConfig, OrchestratorConfig, SAConfig, WordbenchConfig
 from semantik_runtime_orchestrator.errors import OrchestratorError
 from semantik_runtime_orchestrator.transaction import ReleaseOrchestrator
 
@@ -35,3 +35,16 @@ def test_activation_failure_rolls_back_promoted_runtime(tmp_path: Path):
 
 def test_plan_has_no_mutation(tmp_path: Path):
     c=cfg(tmp_path); plan=ReleaseOrchestrator(c).plan(); assert plan["status"]=="PLANNED"; assert not c.runtime_root.exists(); assert not c.state_root.exists()
+
+
+def test_full_release_from_prebuilt_pgf_without_wordbench(tmp_path: Path):
+    c=cfg(tmp_path)
+    pgf=tmp_path/"direct.pgf"; pgf.write_bytes(b"PGF-DIRECT")
+    c=OrchestratorConfig(
+        source_path=c.source_path,runtime_set_id=c.runtime_set_id,language=c.language,profile_id=c.profile_id,concrete=c.concrete,
+        sa_version_range=c.sa_version_range,contract_version=c.contract_version,bridge=c.bridge,lexicon=c.lexicon,
+        capability_profile=c.capability_profile,conformance_suite=c.conformance_suite,runtime_root=c.runtime_root,state_root=c.state_root,
+        keep_staging=c.keep_staging,wordbench=None,sa=c.sa,levelupdiag=None,observatory=None,grammar=GrammarConfig(pgf,None))
+    plan=ReleaseOrchestrator(c).plan(); assert plan["grammar"]["mode"]=="prebuilt_pgf" and "wordbench" not in plan
+    r=ReleaseOrchestrator(c).execute(); assert r["status"]=="RELEASED"
+    assert any(x["stage"]=="grammar_input" and x["status"]=="PASS" for x in r["stages"])

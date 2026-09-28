@@ -1,12 +1,31 @@
 __pycache__/
 *.py[cod]
+*.egg-info/
 .pytest_cache/
+.pytest-tmp/
+.mypy_cache/
+.ruff_cache/
 .coverage
 htmlcov/
 build/
 dist/
-*.egg-info/
 .venv/
 venv/
+.env
+.env.*
+*.log
+.DS_Store
+Thumbs.db
 .semantiK-runtime-orchestrator/
 .semantik-runtime-orchestrator/
+
+# Local helper tooling.
+GitSink.bat
+/SmartSnap.pyw
+
+# Local editor/backup artifacts.
+*.bak
+*.bak-*
+*.bak_*
+*.tmp
+*~

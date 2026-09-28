@@ -5,7 +5,7 @@ from pathlib import Path
 import time
 import uuid
 
-from .bundle import prepare_candidate, validate_inputs
+from .bundle import prepare_candidate, prepare_candidate_from_pgf, validate_inputs
 from .config import OrchestratorConfig
 from .errors import OrchestratorError
 from .gates import run_gate
@@ -48,7 +48,7 @@ class ReleaseOrchestrator:
                 "conformance_suite": {"path": str(cfg.conformance_suite), "sha256": sha256_file(cfg.conformance_suite)},
             },
             "stages": [
-                "wordbench",
+                "wordbench" if cfg.wordbench is not None else "grammar_input",
                 "prepare",
                 "sa_conformance",
                 "release_metadata",
@@ -59,21 +59,28 @@ class ReleaseOrchestrator:
                 "activation",
             ],
         }
-        if cfg.wordbench.run is not None:
-            release = inspect_wordbench_release(cfg.wordbench.run)
-            pgf = select_pgf(release, cfg.wordbench.pgf_artifact)
-            payload["wordbench"] = {
-                "mode": "existing_release",
-                "run_id": release.run_id,
-                "run_dir": str(release.run_dir),
-                "pgf": {"path": str(pgf.path), "sha256": pgf.sha256},
-            }
+        if cfg.wordbench is not None:
+            if cfg.wordbench.run is not None:
+                release = inspect_wordbench_release(cfg.wordbench.run)
+                pgf = select_pgf(release, cfg.wordbench.pgf_artifact)
+                payload["wordbench"] = {
+                    "mode": "existing_release",
+                    "run_id": release.run_id,
+                    "run_dir": str(release.run_dir),
+                    "pgf": {"path": str(pgf.path), "sha256": pgf.sha256},
+                }
+            else:
+                payload["wordbench"] = {
+                    "mode": "command",
+                    "out_root": str(cfg.wordbench.out_root),
+                    "pgf_artifact": cfg.wordbench.pgf_artifact,
+                }
         else:
-            payload["wordbench"] = {
-                "mode": "command",
-                "out_root": str(cfg.wordbench.out_root),
-                "pgf_artifact": cfg.wordbench.pgf_artifact,
-            }
+            assert cfg.grammar is not None
+            actual = sha256_file(cfg.grammar.pgf)
+            if cfg.grammar.sha256 and actual != cfg.grammar.sha256:
+                raise OrchestratorError("SRO-IN-007", "plan", "PGF SHA-256 does not match configured grammar input.", {"expected": cfg.grammar.sha256, "actual": actual})
+            payload["grammar"] = {"mode": "prebuilt_pgf", "pgf": {"path": str(cfg.grammar.pgf), "sha256": actual}}
         return payload
 
     def execute(self) -> dict[str, object]:
@@ -112,25 +119,27 @@ class ReleaseOrchestrator:
                 "runtime_root": str(cfg.runtime_root.resolve()),
                 "state_root": str(cfg.state_root.resolve()),
             }
-            release = resolve_wordbench_release(cfg.wordbench, values)
-            pgf = select_pgf(release, cfg.wordbench.pgf_artifact)
-            record("wordbench", "PASS", run_id=release.run_id, run_dir=str(release.run_dir), pgf_sha256=pgf.sha256)
-
             staging_runtime_root.mkdir(parents=True, exist_ok=False)
-            bundle = prepare_candidate(
-                staging_root=staging_runtime_root,
-                release=release,
-                runtime_set_id=cfg.runtime_set_id,
-                language=cfg.language,
-                profile_id=cfg.profile_id,
-                concrete=cfg.concrete,
-                bridge=cfg.bridge,
-                lexicon=cfg.lexicon,
-                capability_profile=cfg.capability_profile,
-                conformance_suite=cfg.conformance_suite,
-                contract_version=cfg.contract_version,
-                pgf_selector=cfg.wordbench.pgf_artifact,
-            )
+            if cfg.wordbench is not None:
+                release = resolve_wordbench_release(cfg.wordbench, values)
+                pgf = select_pgf(release, cfg.wordbench.pgf_artifact)
+                record("wordbench", "PASS", run_id=release.run_id, run_dir=str(release.run_dir), pgf_sha256=pgf.sha256)
+                bundle = prepare_candidate(
+                    staging_root=staging_runtime_root, release=release, runtime_set_id=cfg.runtime_set_id,
+                    language=cfg.language, profile_id=cfg.profile_id, concrete=cfg.concrete, bridge=cfg.bridge,
+                    lexicon=cfg.lexicon, capability_profile=cfg.capability_profile, conformance_suite=cfg.conformance_suite,
+                    contract_version=cfg.contract_version, pgf_selector=cfg.wordbench.pgf_artifact,
+                )
+            else:
+                assert cfg.grammar is not None
+                actual = sha256_file(cfg.grammar.pgf)
+                record("grammar_input", "PASS", pgf=str(cfg.grammar.pgf), pgf_sha256=actual)
+                bundle = prepare_candidate_from_pgf(
+                    staging_root=staging_runtime_root, pgf_path=cfg.grammar.pgf, expected_pgf_sha256=cfg.grammar.sha256,
+                    runtime_set_id=cfg.runtime_set_id, language=cfg.language, profile_id=cfg.profile_id, concrete=cfg.concrete,
+                    bridge=cfg.bridge, lexicon=cfg.lexicon, capability_profile=cfg.capability_profile,
+                    conformance_suite=cfg.conformance_suite, contract_version=cfg.contract_version,
+                )
             record("prepare", "PASS", candidate=str(bundle.root))
 
             evidence, conf_process = run_conformance(bundle, cfg.sa)

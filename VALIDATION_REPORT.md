@@ -1,3 +1,7 @@
+# Validation addendum — 1.1.1 — 2026-09-28
+
+Direct prebuilt-PGF mode added; pytest suite passes after the change. Historical 1.1.0 report follows.
+
 # Validation Report — SemantiK Runtime Orchestrator 1.1.0
 
 Validation date: 2026-09-27

@@ -55,3 +55,8 @@ The orchestrator never:
 ## Lexical boundary
 
 Runtime releases pin lexical policy explicitly. Wikidata Lexemes are the default generic lexical knowledge authority; GF/RGL remains grammar/morphology authority, and generic GF lexical artifacts are realization fallback. The orchestrator validates/stages these artifacts but does not interpret linguistic meaning.
+
+
+## Grammar input boundary
+
+The orchestrator accepts exactly one grammar source: a Wordbench release or a prebuilt PGF pinned directly by path/hash. Wordbench is a development producer, not a mandatory runtime-release dependency. In either mode the orchestrator owns only verification, assembly, gates, promotion and activation.

@@ -63,6 +63,98 @@ def validate_inputs(
         )
 
 
+def prepare_candidate_from_pgf(
+    *,
+    staging_root: Path,
+    pgf_path: Path,
+    expected_pgf_sha256: str | None,
+    runtime_set_id: str,
+    language: str,
+    profile_id: str,
+    concrete: str,
+    bridge: Path,
+    lexicon: Path,
+    capability_profile: Path,
+    conformance_suite: Path,
+    contract_version: str,
+    provenance: dict[str, object] | None = None,
+) -> CandidateBundle:
+    validate_inputs(
+        bridge,
+        lexicon,
+        capability_profile,
+        conformance_suite,
+        contract_version=contract_version,
+        expected_profile_id=profile_id,
+    )
+    source = pgf_path.resolve()
+    if not source.is_file():
+        raise OrchestratorError("SRO-IN-006", "prepare", f"PGF source does not exist: {source}")
+    actual_sha256 = sha256_file(source)
+    if expected_pgf_sha256 and actual_sha256 != expected_pgf_sha256.lower():
+        raise OrchestratorError(
+            "SRO-IN-007",
+            "prepare",
+            "PGF SHA-256 does not match configured grammar input.",
+            {"expected": expected_pgf_sha256.lower(), "actual": actual_sha256, "path": str(source)},
+        )
+    root = (staging_root / runtime_set_id).resolve()
+    if root.exists():
+        shutil.rmtree(root)
+    root.mkdir(parents=True)
+
+    pgf_target = root / "grammar.pgf"
+    bridge_path = root / "bridge.json"
+    lexicon_path = root / "lexicon.json"
+    profile_path = root / "profile.json"
+    suite_path = root / "conformance.suite.json"
+    evidence_path = root / "conformance.evidence.json"
+
+    copy_verified(source, pgf_target, expected_sha256=actual_sha256, stage="prepare")
+    copy_verified(bridge, bridge_path, stage="prepare")
+    copy_verified(lexicon, lexicon_path, stage="prepare")
+    copy_verified(capability_profile, profile_path, stage="prepare")
+    copy_verified(conformance_suite, suite_path, stage="prepare")
+
+    grammar_input = {
+        "mode": "prebuilt_pgf",
+        "pgf_source": str(source),
+        "pgf_sha256": actual_sha256,
+        **(provenance or {}),
+    }
+    lock = {
+        "schema_version": "1.0",
+        "runtime_set_id": runtime_set_id,
+        "language": language,
+        "profile_id": profile_id,
+        "concrete": concrete,
+        "sa_gf_contract_version": contract_version,
+        "grammar_input": grammar_input,
+        "inputs": {
+            "grammar.pgf": sha256_file(pgf_target),
+            "bridge.json": sha256_file(bridge_path),
+            "lexicon.json": sha256_file(lexicon_path),
+            "profile.json": sha256_file(profile_path),
+            "conformance.suite.json": sha256_file(suite_path),
+        },
+        "lexical_policy": validate_lexical_artifact(read_json(lexicon_path, stage="prepare")),
+    }
+    write_json_atomic(root / "pipeline.lock.json", lock)
+    return CandidateBundle(
+        root,
+        runtime_set_id,
+        language,
+        profile_id,
+        concrete,
+        pgf_target,
+        bridge_path,
+        lexicon_path,
+        profile_path,
+        suite_path,
+        evidence_path,
+    )
+
+
 def prepare_candidate(
     *,
     staging_root: Path,
@@ -78,66 +170,19 @@ def prepare_candidate(
     contract_version: str,
     pgf_selector: str | None,
 ) -> CandidateBundle:
-    validate_inputs(
-        bridge,
-        lexicon,
-        capability_profile,
-        conformance_suite,
-        contract_version=contract_version,
-        expected_profile_id=profile_id,
-    )
     selected_pgf = select_pgf(release, pgf_selector)
-    root = (staging_root / runtime_set_id).resolve()
-    if root.exists():
-        shutil.rmtree(root)
-    root.mkdir(parents=True)
-
-    pgf_path = root / "grammar.pgf"
-    bridge_path = root / "bridge.json"
-    lexicon_path = root / "lexicon.json"
-    profile_path = root / "profile.json"
-    suite_path = root / "conformance.suite.json"
-    evidence_path = root / "conformance.evidence.json"
-
-    copy_verified(selected_pgf.path, pgf_path, expected_sha256=selected_pgf.sha256, stage="prepare")
-    copy_verified(bridge, bridge_path, stage="prepare")
-    copy_verified(lexicon, lexicon_path, stage="prepare")
-    copy_verified(capability_profile, profile_path, stage="prepare")
-    copy_verified(conformance_suite, suite_path, stage="prepare")
-
-    lock = {
-        "schema_version": "1.0",
-        "runtime_set_id": runtime_set_id,
-        "language": language,
-        "profile_id": profile_id,
-        "concrete": concrete,
-        "sa_gf_contract_version": contract_version,
-        "wordbench": {
-            "run_id": release.run_id,
-            "run_dir": str(release.run_dir),
-            "pgf_source": str(selected_pgf.path),
-            "pgf_sha256": selected_pgf.sha256,
-        },
-        "inputs": {
-            "grammar.pgf": sha256_file(pgf_path),
-            "bridge.json": sha256_file(bridge_path),
-            "lexicon.json": sha256_file(lexicon_path),
-            "profile.json": sha256_file(profile_path),
-            "conformance.suite.json": sha256_file(suite_path),
-        },
-        "lexical_policy": validate_lexical_artifact(read_json(lexicon_path, stage="prepare")),
-    }
-    write_json_atomic(root / "pipeline.lock.json", lock)
-    return CandidateBundle(
-        root,
-        runtime_set_id,
-        language,
-        profile_id,
-        concrete,
-        pgf_path,
-        bridge_path,
-        lexicon_path,
-        profile_path,
-        suite_path,
-        evidence_path,
+    return prepare_candidate_from_pgf(
+        staging_root=staging_root,
+        pgf_path=selected_pgf.path,
+        expected_pgf_sha256=selected_pgf.sha256,
+        runtime_set_id=runtime_set_id,
+        language=language,
+        profile_id=profile_id,
+        concrete=concrete,
+        bridge=bridge,
+        lexicon=lexicon,
+        capability_profile=capability_profile,
+        conformance_suite=conformance_suite,
+        contract_version=contract_version,
+        provenance={"mode": "wordbench", "run_id": release.run_id, "run_dir": str(release.run_dir)},
     )

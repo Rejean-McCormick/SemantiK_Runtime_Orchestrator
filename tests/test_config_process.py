@@ -18,3 +18,15 @@ def test_rejects_unsafe_runtime_id(tmp_path: Path):
 
 def test_argv_expansion_preserves_spaces():
     assert expand_argv(["python","x.py","{suite}"],{"suite":"A B.json"},stage="x")==["python","x.py","A B.json"]
+
+
+def test_config_accepts_prebuilt_pgf_without_wordbench(tmp_path: Path):
+    d=config_data(); d.pop("wordbench"); d["grammar"]={"pgf":"grammar.pgf","sha256":"0"*64}
+    p=tmp_path/"c.json"; p.write_text(json.dumps(d))
+    c=OrchestratorConfig.from_json(p)
+    assert c.wordbench is None
+    assert c.grammar is not None and c.grammar.pgf==(tmp_path/"grammar.pgf").resolve()
+
+def test_config_requires_exactly_one_grammar_source(tmp_path: Path):
+    d=config_data(); d["grammar"]={"pgf":"grammar.pgf"}; p=tmp_path/"c.json"; p.write_text(json.dumps(d))
+    with pytest.raises(OrchestratorError): OrchestratorConfig.from_json(p)

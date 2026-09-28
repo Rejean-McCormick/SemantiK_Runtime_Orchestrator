@@ -44,3 +44,8 @@ The current SA CLI accepts `conformance --suite {suite} --runtime-set-id {runtim
 Evidence may identify its profile as `capability_profile` (SA contract) or `profile_id` (orchestrator contract). If both exist they must agree. Runtime and language identity checks remain mandatory.
 
 `examples/konstellation-fr.json` points to sibling `semantik-architect/profiles/konstellation-explorer-1` resources. Set the Wordbench READY release directory before release. The example runtime ID matches its suite. Change them together when making a new immutable release. Optional diagnostics gates may be added using the standard configuration; no placeholder gate is silently executed.
+
+
+## Direct grammar input
+
+`grammar.pgf` is the direct-input contract for already-built grammars. `grammar.sha256` is optional but, when supplied, MUST match exactly. `wordbench` and `grammar` are mutually exclusive. Direct mode does not weaken SA conformance or runtime validation.

@@ -1,27 +1,23 @@
 {
   "schema_version": "1.0",
   "release": {
-    "runtime_set_id": "konstellation-fr-1",
+    "runtime_set_id": "konstellation-fr-2",
     "language": "fr",
-    "profile_id": "konstellation-explorer-1",
+    "profile_id": "konstellation-explorer-2",
     "concrete": "KonstellationFre",
     "sa_version_range": ">=1.0,<2.0",
     "contract_version": "1.0"
   },
   "inputs": {
-    "bridge": "../../semantik-architect/profiles/konstellation-explorer-1/bridge.json",
-    "lexicon": "../../semantik-architect/profiles/konstellation-explorer-1/lexicon.json",
-    "capability_profile": "../../semantik-architect/profiles/konstellation-explorer-1/profile.json",
-    "conformance_suite": "../../semantik-architect/profiles/konstellation-explorer-1/conformance.suite.json"
+    "bridge": "../../semantik-architect/profiles/konstellation-explorer-2/bridge.json",
+    "lexicon": "../../semantik-architect/profiles/konstellation-explorer-2/lexicon.json",
+    "capability_profile": "../../semantik-architect/profiles/konstellation-explorer-2/profile.json",
+    "conformance_suite": "../../semantik-architect/profiles/konstellation-explorer-2/conformance.suite.json"
   },
   "runtime": {
     "root": "../../semantik-architect/runtime",
     "state_root": ".semantik-runtime-orchestrator",
     "keep_staging": false
-  },
-  "wordbench": {
-    "run": "../../GF_Wordbench/_runs/konstellation/REPLACE_WITH_VERIFIED_RELEASE",
-    "pgf_artifact": "Konstellation.pgf"
   },
   "sa": {
     "conformance": {
@@ -55,5 +51,8 @@
         "{runtime_set_id}"
       ]
     }
+  },
+  "grammar": {
+    "pgf": "../../semantik-architect/profiles/konstellation-explorer-2/Konstellation.pgf"
   }
 }
