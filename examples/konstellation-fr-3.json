@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "release": {
+    "runtime_set_id": "konstellation-fr-3",
+    "language": "fr",
+    "profile_id": "konstellation-explorer-3",
+    "concrete": "KonstellationFre",
+    "sa_version_range": ">=1.0,<2.0",
+    "contract_version": "1.0"
+  },
+  "inputs": {
+    "bridge": "../SemantiK_Architect/profiles/konstellation-explorer-3/bridge.json",
+    "lexicon": "../SemantiK_Architect/profiles/konstellation-explorer-3/lexicon.json",
+    "capability_profile": "../SemantiK_Architect/profiles/konstellation-explorer-3/profile.json",
+    "conformance_suite": "../SemantiK_Architect/profiles/konstellation-explorer-3/conformance.suite.json"
+  },
+  "runtime": {
+    "root": "../SemantiK_Architect/runtime",
+    "state_root": ".semantik-runtime-orchestrator",
+    "keep_staging": false
+  },
+  "sa": {
+    "conformance": {
+      "cwd": "../SemantiK_Architect",
+      "command": [
+        "python", "-m", "semantik_architect.adapters.inbound.cli.main",
+        "--runtime-root", "{candidate_runtime_root}",
+        "conformance", "--suite", "{suite}",
+        "--runtime-set-id", "{runtime_set_id}",
+        "--output", "{evidence}", "--candidate-dir", "{candidate_root}"
+      ]
+    },
+    "validate_runtime": {
+      "cwd": "../SemantiK_Architect",
+      "command": [
+        "python", "-m", "semantik_architect.adapters.inbound.cli.main",
+        "--runtime-root", "{candidate_runtime_root}",
+        "validate-runtime", "{runtime_set_id}"
+      ]
+    }
+  },
+  "grammar": {
+    "pgf": "../SemantiK_Architect/profiles/konstellation-explorer-3/Konstellation.pgf"
+  }
+}
