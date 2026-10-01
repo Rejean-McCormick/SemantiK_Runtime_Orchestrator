@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.2 — 2026-10-01
+
+- Declared compatibility with SemantiK Architect 1.2.0.
+- Kept the RuntimeSet release orchestrator intentionally independent of Kristal v6 knowledge/actionability semantics.
+- Preserved the existing `>=1.0,<2.0` SA compatibility range and fail-closed release gates.
+
+
 ## 1.1.0 — 2026-09-27
 
 - Added lexical artifact v1.1 validation while retaining v1.0 compatibility.

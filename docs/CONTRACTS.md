@@ -49,3 +49,7 @@ Evidence may identify its profile as `capability_profile` (SA contract) or `prof
 ## Direct grammar input
 
 `grammar.pgf` is the direct-input contract for already-built grammars. `grammar.sha256` is optional but, when supplied, MUST match exactly. `wordbench` and `grammar` are mutually exclusive. Direct mode does not weaken SA conformance or runtime validation.
+
+## SemantiK Architect 1.2.0 compatibility
+
+Runtime manifests continue to use the declared `sa_version_range`; the default `>=1.0,<2.0` admits 1.2.0. Kristal v6 communication projection contracts are not orchestrator inputs.
