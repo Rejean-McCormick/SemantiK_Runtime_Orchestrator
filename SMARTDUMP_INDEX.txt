@@ -1,0 +1,53 @@
+SMART DUMPER INDEX
+==================
+generated_at: 2026-10-03T13:23:38.995621+00:00
+source_root: release:SemantiK_Runtime_Orchestrator
+zip_file: SemantiK-Runtime-Orchestrator-1.2.0.zip
+embedded_index: SNAPSHOT_INDEX.txt
+file_count: 41
+total_bytes: 101929
+compression: ZIP_DEFLATED
+
+FILES
+-----
+.gitignore	353 bytes
+CHANGELOG.md	2394 bytes
+docs/ARCHITECTURE.md	3475 bytes
+docs/CONTRACTS.md	4175 bytes
+docs/MIGRATION_FROM_EMBEDDED.md	663 bytes
+examples/konstellation-fr-3.json	1580 bytes
+examples/konstellation-fr.json	1708 bytes
+examples/runtime-orchestrator.example.json	1940 bytes
+pyproject.toml	659 bytes
+README.md	1569 bytes
+REPOSITORY_DESCRIPTION.txt	297 bytes
+schemas/orchestrator-config.schema.json	5802 bytes
+schemas/transaction-report.schema.json	700 bytes
+src/semantik_runtime_orchestrator/__init__.py	299 bytes
+src/semantik_runtime_orchestrator/bundle.py	6628 bytes
+src/semantik_runtime_orchestrator/cli.py	2826 bytes
+src/semantik_runtime_orchestrator/config.py	9259 bytes
+src/semantik_runtime_orchestrator/domain.py	1151 bytes
+src/semantik_runtime_orchestrator/errors.py	861 bytes
+src/semantik_runtime_orchestrator/gates.py	731 bytes
+src/semantik_runtime_orchestrator/io.py	2810 bytes
+src/semantik_runtime_orchestrator/lexical.py	3560 bytes
+src/semantik_runtime_orchestrator/locking.py	2431 bytes
+src/semantik_runtime_orchestrator/process.py	1578 bytes
+src/semantik_runtime_orchestrator/release.py	5254 bytes
+src/semantik_runtime_orchestrator/sa.py	4303 bytes
+src/semantik_runtime_orchestrator/transaction.py	11040 bytes
+src/semantik_runtime_orchestrator/wordbench.py	6545 bytes
+tests/conftest.py	195 bytes
+tests/helpers.py	1861 bytes
+tests/test_boundaries.py	1150 bytes
+tests/test_bundle_sa.py	2409 bytes
+tests/test_config_process.py	2012 bytes
+tests/test_lexical_contract.py	1272 bytes
+tests/test_release_lock.py	2128 bytes
+tests/test_schemas.py	377 bytes
+tests/test_transaction.py	3774 bytes
+tests/test_wordbench.py	1142 bytes
+UPDATE-KONSTELLATION-2026-09-27.md	440 bytes
+VALIDATION_REPORT.md	572 bytes
+VERSION	6 bytes

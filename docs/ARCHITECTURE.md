@@ -61,6 +61,6 @@ Runtime releases pin lexical policy explicitly. Wikidata Lexemes are the default
 
 The orchestrator accepts exactly one grammar source: a Wordbench release or a prebuilt PGF pinned directly by path/hash. Wordbench is a development producer, not a mandatory runtime-release dependency. In either mode the orchestrator owns only verification, assembly, gates, promotion and activation.
 
-## Kristal v6 boundary
+## Ecosystem semantic boundary
 
-SemantiK Architect 1.2.0 may receive an explicit Kristal v6 communication projection, but that boundary terminates before RuntimeSet release orchestration. This repository never uses Kristal valuations/actionability to promote, rollback, or activate a runtime. Release authority remains the existing evidence/conformance transaction.
+SemantiK Architect 1.3 may receive an explicit portable Kristal v6 communication projection under the Kristal/Kristall `7.0.0-draft.3.2` design baseline, but that boundary terminates before RuntimeSet release orchestration. This repository never uses Kristal valuations/actionability, DaaT admission state, Kompiler context, EncyK acquisition state or Médiathèque source state to promote, rollback or activate a runtime. Release authority remains the existing evidence/conformance transaction.

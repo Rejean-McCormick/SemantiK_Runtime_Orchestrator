@@ -1,10 +1,5 @@
 .gitignore
 CHANGELOG.md
-README.md
-REPOSITORY_DESCRIPTION.txt
-UPDATE-KONSTELLATION-2026-09-27.md
-VALIDATION_REPORT.md
-VERSION
 docs/ARCHITECTURE.md
 docs/CONTRACTS.md
 docs/MIGRATION_FROM_EMBEDDED.md
@@ -12,8 +7,11 @@ examples/konstellation-fr-3.json
 examples/konstellation-fr.json
 examples/runtime-orchestrator.example.json
 pyproject.toml
+README.md
+REPOSITORY_DESCRIPTION.txt
 schemas/orchestrator-config.schema.json
 schemas/transaction-report.schema.json
+SMARTDUMP_INDEX.txt
 src/semantik_runtime_orchestrator/__init__.py
 src/semantik_runtime_orchestrator/bundle.py
 src/semantik_runtime_orchestrator/cli.py
@@ -39,3 +37,6 @@ tests/test_release_lock.py
 tests/test_schemas.py
 tests/test_transaction.py
 tests/test_wordbench.py
+UPDATE-KONSTELLATION-2026-09-27.md
+VALIDATION_REPORT.md
+VERSION

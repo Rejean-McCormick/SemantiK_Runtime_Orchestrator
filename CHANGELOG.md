@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.2.0 — 2026-10-03
+
+- Declared compatibility with SemantiK Architect `1.3.0-alpha.2`.
+- Aligned ecosystem documentation to Kristal/Kristall `7.0.0-draft.3.2` while keeping semantic contracts completely outside RuntimeSet release orchestration.
+- Normalized the human integration name to **DaaT** / machine id `daat`.
+- Explicitly excludes DaaT/IK, Kompiler, EncyK and Médiathèque state from promotion/rollback/activation authority.
+- Strengthened product-boundary tests so runtime code cannot import the connected ecosystem products.
+- Preserved `sa_version_range >=1.0,<2.0` and all existing release transaction contracts.
+
 ## 1.1.2 — 2026-10-01
 
 - Declared compatibility with SemantiK Architect 1.2.0.
