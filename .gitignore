@@ -29,3 +29,17 @@ GitSink.bat
 *.bak_*
 *.tmp
 *~
+
+# Additional local/cache patterns
+.cache/
+.coverage.*
+*.temp
+*.bak.*
+*.backup
+*.backup-*
+*.backup_*
+*.swp
+*.swo
+.idea/
+.vscode/
+Desktop.ini
