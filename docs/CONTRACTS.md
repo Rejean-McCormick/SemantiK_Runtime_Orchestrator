@@ -53,3 +53,14 @@ Evidence may identify its profile as `capability_profile` (SA contract) or `prof
 ## SemantiK Architect 1.3 compatibility
 
 Runtime manifests continue to use the declared `sa_version_range`; the default `>=1.0,<2.0` admits SemantiK Architect `1.3.0-alpha.2`. Portable Kristal/Kristall communication projections, DaaT/IK interactions, Kompiler context bundles and source-store contracts are not orchestrator inputs.
+
+## Defluens practical handoff — explicit non-release boundary
+
+`inspect-development-handoff <semantik_handoff.json>` is a read-only triage command.
+Its result is always `BLOCKED` for RuntimeSet release. A 210/210 successful
+practical GF campaign is **not** `gf-wordbench.artifact-manifest/1.0`, a
+compiled `grammar.pgf`, SA candidate conformance or signed promotion evidence.
+It cannot trigger publication or activation. To release, first use the existing
+`inspect-wordbench` READY gate, then the normal SA conformance and release
+transaction. Defluens must call public commands rather than importing the
+orchestrator's internal Python modules.

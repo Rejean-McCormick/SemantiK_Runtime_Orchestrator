@@ -23,6 +23,9 @@ def _parser() -> argparse.ArgumentParser:
     inspect = sub.add_parser("inspect-wordbench", help="Verify a finalized GF Wordbench release.")
     inspect.add_argument("run_dir")
 
+    dev = sub.add_parser("inspect-development-handoff", help="Explain why a Defluens practical-probe handoff is not a READY release.")
+    dev.add_argument("handoff")
+
     validate = sub.add_parser("validate-config", help="Parse and validate an orchestrator config without running external tools.")
     validate.add_argument("--config", required=True)
 
@@ -42,7 +45,10 @@ def _parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
     try:
-        if args.command == "inspect-profile":
+        if args.command == "inspect-development-handoff":
+            from .development import inspect_development_handoff
+            payload=inspect_development_handoff(Path(args.handoff))
+        elif args.command == "inspect-profile":
             from .readiness import inspect_profile
             payload=inspect_profile(Path(args.runtime_root),language=args.language,profile_id=args.profile)
         elif args.command == "inspect-wordbench":
@@ -71,6 +77,9 @@ def main(argv: list[str] | None = None) -> int:
                 payload = ReleaseOrchestrator(config).execute()
         print(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True))
         return 2 if payload.get('status')=='BLOCKED' else 0
+    except (ValueError, OSError, json.JSONDecodeError) as exc:
+        print(json.dumps({"status":"FAIL","reason":"invalid_development_handoff_or_config","message":str(exc)}, ensure_ascii=False),file=sys.stderr)
+        return 2
     except OrchestratorError as exc:
         print(json.dumps({"status": "FAIL", "error": exc.to_dict()}, ensure_ascii=False, indent=2, sort_keys=True), file=sys.stderr)
         return 2

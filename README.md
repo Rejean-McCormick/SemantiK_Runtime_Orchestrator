@@ -25,3 +25,9 @@ Run:
 ```bash
 python -m pytest -q
 ```
+
+## Defluens pilot evidence is never a release input
+
+Run `semantik-runtime-orchestrator inspect-development-handoff <handoff.json>`
+for an explicit **BLOCKED** verdict. Use the existing `inspect-wordbench` and
+SA release transaction for a genuine READY release. This inspection is read-only.

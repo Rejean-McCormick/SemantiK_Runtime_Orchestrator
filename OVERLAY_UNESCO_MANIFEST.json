@@ -1,0 +1,11 @@
+{
+  "format": "kristal.unesco-overlay-manifest/1.0",
+  "target_root": "C:\\mycode\\SemantiK_Architect\\SemantiK_Runtime_Orchestrator",
+  "additive": true,
+  "requires_other_overlays": true,
+  "files": {
+    "README_OVERLAY_UNESCO_GF.md": "0da5513e21517ab227102b7c5409d2aa27c9b1d1d867378464cfd2497e807cf4",
+    "tests/test_unesco_candidate_preflight.py": "a6650c8edf261bfb804c51ed000d706e0407191149b7334a1525e2c7d7512625",
+    "tools/unesco_candidate_preflight.py": "ee660c6ee529ba950e2a61729204bc1039e808ec65348a4184bfc3f7c72e1299"
+  }
+}

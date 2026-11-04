@@ -5,4 +5,4 @@ from .errors import OrchestratorError
 from .transaction import ReleaseOrchestrator
 
 __all__ = ["OrchestratorConfig", "OrchestratorError", "ReleaseOrchestrator"]
-__version__ = "1.2.0"
+__version__ = "1.2.1"

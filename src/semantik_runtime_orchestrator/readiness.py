@@ -98,7 +98,9 @@ def inspect_profile(runtime_root: Path, *, language: str, profile_id: str) -> di
                     good=False;break
                 expected=evidence_digests.get(filename)
                 evidence=_read(folder,filename)
-                if not HASH.fullmatch(expected or '') or _digest(folder/filename)!=expected or not evidence or evidence.get('passed') is not True:
+                if (not HASH.fullmatch(expected or '') or _digest(folder/filename)!=expected or not evidence
+                    or evidence.get('passed') is not True or evidence.get('runtime_set_id')!=runtime_id
+                    or evidence.get('language')!=language or evidence.get('profile_id')!=profile_id):
                     good=False;break
             base['conformance_evidence_verified']=good
             if not good: reasons.append('conformance_evidence_unverified')

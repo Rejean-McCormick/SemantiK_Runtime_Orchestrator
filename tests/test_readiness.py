@@ -33,3 +33,29 @@ def test_released_and_verified_artifacts_required(tmp_path):
     result=inspect_profile(tmp_path,language='fr',profile_id='agriculture-reference-1')
     assert result['can_realize'] is False
     assert 'conformance_evidence_unverified' in result['reasons']
+
+
+def test_attestation_without_runtime_language_profile_binding_is_refused(tmp_path):
+    # A signed-looking/hash-pinned "passed": true alone does not establish
+    # evidence for this exact RuntimeSet/profile/language.
+    import hashlib
+    root=tmp_path/'rt';root.mkdir()
+    (tmp_path/'activation.json').write_text(json.dumps({'schema_version':'1.0',
+        'bindings':{'fr|agriculture-reference-1':'rt'}}))
+    for name,data in [('grammar.pgf',b'not_a_real_pgf'),('lexicon.json',b'{}'),('bridge.json',b'{}')]:
+        (root/name).write_bytes(data)
+    caps={'schema_version':'1.0','runtime_set_id':'rt','languages':{'fr':{'status':'RELEASED',
+        'profiles':[{'profile_id':'agriculture-reference-1','status':'RELEASED'}]}}}
+    (root/'capabilities.json').write_text(json.dumps(caps))
+    (root/'conformance.evidence.json').write_text(json.dumps({'passed':True}))
+    sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+    artifacts=[{'artifact_type':k,'path':f,'sha256':sha(root/f)} for k,f in
+        [('grammar','grammar.pgf'),('lexical','lexicon.json'),('other','bridge.json')]]
+    man={'schema_version':'1.0','status':'RELEASED','runtime_set_id':'rt','artifacts':artifacts,
+        'capability_manifest_sha256':sha(root/'capabilities.json'),
+        'conformance_evidence_refs':['conformance.evidence.json'],
+        'conformance_evidence_sha256':{'conformance.evidence.json':sha(root/'conformance.evidence.json')}}
+    (root/'runtime.manifest.json').write_text(json.dumps(man))
+    result=inspect_profile(tmp_path,language='fr',profile_id='agriculture-reference-1')
+    assert result['status']=='BLOCKED'
+    assert 'conformance_evidence_unverified' in result['reasons']

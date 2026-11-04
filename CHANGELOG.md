@@ -42,3 +42,9 @@
 - Added direct prebuilt-PGF release mode; Wordbench is no longer mandatory.
 - Preserved Wordbench release mode unchanged.
 - Direct PGF inputs are hash-verifiable and still pass through SA conformance, validation, promotion and activation.
+
+## 1.2.1 — Defluens development boundary
+
+- Added `inspect-development-handoff`: read-only, explicit `BLOCKED` result
+  for isolated GF probe evidence. No activation, promotion, bypass or rollback
+  logic was modified; public `inspect-profile` remains the readiness authority.
