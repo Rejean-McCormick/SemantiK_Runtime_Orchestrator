@@ -1,0 +1,22 @@
+{
+  "automatic_canonical_minting": false,
+  "branch": "unesco-mt1-10",
+  "format": "koa.unesco-mt1-10-lot2-repository-status/1.0",
+  "language_runtimes_all_qualified": false,
+  "local_relative_path": "SemantiK_Architect/SemantiK_Runtime_Orchestrator",
+  "new_executable_tools": [
+    "tools/unesco_14_locale_readiness.py"
+  ],
+  "notes": [
+    "All 14 language pairs require actual hash/conformance and execution evidence."
+  ],
+  "publication_gates_passed": false,
+  "remote_upload_authorized": false,
+  "repo": "SemantiK_Runtime_Orchestrator",
+  "requested_languages": 14,
+  "role": "language-runtime-release",
+  "semantic_grain": "ONE_BRANCH_KRISTAL",
+  "source_evidence_approved": false,
+  "status": "INTEGRATION_CANDIDATE_NOT_PRODUCTION",
+  "unesco_seed_concepts": 41
+}
