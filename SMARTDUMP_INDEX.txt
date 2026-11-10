@@ -1,39 +1,49 @@
 SMART DUMPER INDEX
 ==================
-generated_at: 2026-11-04T09:43:46.135032
+generated_at: 2026-11-09T16:32:04.418042
 source_root: C:\mycode\SemantiK_Architect\SemantiK_Runtime_Orchestrator
 mode: snapshot
 zip_file: SemantiK_Runtime_Orchestrator_Code_snapshot.zip
 embedded_index: SMARTDUMP_INDEX.txt
-file_count: 51
-total_bytes: 124973
+file_count: 68
+total_bytes: 159376
 compression: ZIP_DEFLATED level 1
 
 FILES
 -----
 .gitignore	508 bytes
-CHANGELOG.md	2394 bytes
+CHANGELOG.md	2674 bytes
 docs/ARCHITECTURE.md	3475 bytes
-docs/CONTRACTS.md	4175 bytes
+docs/CONTRACTS.md	4823 bytes
 docs/MIGRATION_FROM_EMBEDDED.md	663 bytes
 docs/SPEK_READINESS_INSPECTION.md	764 bytes
 examples/konstellation-fr-3.json	1580 bytes
 examples/konstellation-fr.json	1708 bytes
 examples/runtime-orchestrator.example.json	1940 bytes
+integrations/konstellation_light/__init__.py	0 bytes
+integrations/konstellation_light/contract.py	5545 bytes
+integrations/konstellation_light/contract.schema.json	4016 bytes
+integrations/konstellation_light/from_orchestrator.py	1786 bytes
+integrations/konstellation_light/README.md	2041 bytes
+integrations/unesco-mt1-10/handoff.json	1474 bytes
+integrations/unesco-mt1-10/lot2-status.json	775 bytes
+integrations/unesco-mt1-10/lot3-status.json	1072 bytes
+integrations/unesco-mt1-10/README.md	1840 bytes
 Launch_MULTiSmartDump.lnk	1359 bytes
 OVERLAY_UNESCO_MANIFEST.json	538 bytes
 pyproject.toml	659 bytes
-README.md	1569 bytes
+README.md	1862 bytes
 README_OVERLAY_UNESCO_GF.md	803 bytes
 REPOSITORY_DESCRIPTION.txt	297 bytes
 schemas/orchestrator-config.schema.json	5802 bytes
 schemas/transaction-report.schema.json	700 bytes
-SMARTDUMP_INDEX.txt	2034 bytes
+SMARTDUMP_INDEX.txt	2492 bytes
 SNAPSHOT_INDEX.txt	1322 bytes
 src/semantik_runtime_orchestrator/__init__.py	299 bytes
 src/semantik_runtime_orchestrator/bundle.py	6628 bytes
-src/semantik_runtime_orchestrator/cli.py	3403 bytes
+src/semantik_runtime_orchestrator/cli.py	3993 bytes
 src/semantik_runtime_orchestrator/config.py	9259 bytes
+src/semantik_runtime_orchestrator/development.py	1474 bytes
 src/semantik_runtime_orchestrator/domain.py	1151 bytes
 src/semantik_runtime_orchestrator/errors.py	861 bytes
 src/semantik_runtime_orchestrator/gates.py	731 bytes
@@ -51,14 +61,21 @@ tests/helpers.py	1861 bytes
 tests/test_boundaries.py	1150 bytes
 tests/test_bundle_sa.py	2409 bytes
 tests/test_config_process.py	2012 bytes
+tests/test_defluens_development_handoff.py	584 bytes
+tests/test_konstellation_multilingual.py	1884 bytes
 tests/test_lexical_contract.py	1272 bytes
 tests/test_readiness.py	3860 bytes
 tests/test_release_lock.py	2128 bytes
 tests/test_schemas.py	377 bytes
 tests/test_transaction.py	3774 bytes
+tests/test_unesco_14_locale_readiness.py	815 bytes
 tests/test_unesco_candidate_preflight.py	2189 bytes
+tests/test_unesco_mt1_10_handoff.py	1553 bytes
+tests/test_unesco_runtime_matrix_v15.py	1927 bytes
 tests/test_wordbench.py	1142 bytes
+tools/unesco_14_locale_readiness.py	2149 bytes
 tools/unesco_candidate_preflight.py	3241 bytes
+tools/unesco_runtime_matrix_v15.py	3199 bytes
 UPDATE-KONSTELLATION-2026-09-27.md	440 bytes
 VALIDATION_REPORT.md	572 bytes
 VERSION	6 bytes

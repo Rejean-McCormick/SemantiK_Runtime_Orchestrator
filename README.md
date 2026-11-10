@@ -1,4 +1,4 @@
-# SemantiK Runtime Orchestrator 1.2.0
+# SemantiK Runtime Orchestrator 1.2.1
 
 Independent fail-closed release orchestrator for SemantiK Architect RuntimeSets. Version 1.2.0 is aligned with **SemantiK Architect 1.3.0-alpha.2** and remains deliberately outside all source/knowledge/context semantic authority boundaries.
 
@@ -31,3 +31,7 @@ python -m pytest -q
 Run `semantik-runtime-orchestrator inspect-development-handoff <handoff.json>`
 for an explicit **BLOCKED** verdict. Use the existing `inspect-wordbench` and
 SA release transaction for a genuine READY release. This inspection is read-only.
+
+## Branch 04 functional-chain alignment
+
+See [final-system reader/language boundaries](docs/BRANCH04_LANGUAGE_RUNTIME_BOUNDARY.md). This is a pinned-snapshot coordination note and does not override owner normative contracts or qualify public publication.
