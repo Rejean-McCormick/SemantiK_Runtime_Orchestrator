@@ -1,4 +1,17 @@
+## 2026-11-23 — Interface inter-dépôts diK / Wikidata (candidat)
+
+- Références KQ/KP namespace-scoped, crosswalk Q/P, 13 langues cibles, lecture seule.
+- Nouveau contrat documentaire, précontrôles ou index dérivé; aucune activation ni promotion.
+- Tests de garde-fous et provenance de snapshot ; compatibilité historique conservée.
+
 # Changelog
+
+## 1.2.1 — Defluens development boundary
+
+- Added `inspect-development-handoff`: read-only, explicit `BLOCKED` result
+  for isolated GF probe evidence. No activation, promotion, bypass or rollback
+  logic was modified; public `inspect-profile` remains the readiness authority.
+
 
 ## 1.2.0 — 2026-10-03
 
@@ -42,9 +55,3 @@
 - Added direct prebuilt-PGF release mode; Wordbench is no longer mandatory.
 - Preserved Wordbench release mode unchanged.
 - Direct PGF inputs are hash-verifiable and still pass through SA conformance, validation, promotion and activation.
-
-## 1.2.1 — Defluens development boundary
-
-- Added `inspect-development-handoff`: read-only, explicit `BLOCKED` result
-  for isolated GF probe evidence. No activation, promotion, bypass or rollback
-  logic was modified; public `inspect-profile` remains the readiness authority.

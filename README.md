@@ -1,6 +1,6 @@
 # SemantiK Runtime Orchestrator 1.2.1
 
-Independent fail-closed release orchestrator for SemantiK Architect RuntimeSets. Version 1.2.0 is aligned with **SemantiK Architect 1.3.0-alpha.2** and remains deliberately outside all source/knowledge/context semantic authority boundaries.
+Independent fail-closed release orchestrator for SemantiK Architect RuntimeSets. The **1.2.0 compatibility baseline** with SemantiK Architect **1.3.0-alpha.2** remains preserved in **1.2.1**, which adds the read-only, blocked Defluens development-handoff inspection. The orchestrator stays outside all source/knowledge/context semantic authority boundaries.
 
 The orchestrator owns release coordination only:
 
@@ -35,3 +35,7 @@ SA release transaction for a genuine READY release. This inspection is read-only
 ## Branch 04 functional-chain alignment
 
 See [final-system reader/language boundaries](docs/BRANCH04_LANGUAGE_RUNTIME_BOUNDARY.md). This is a pinned-snapshot coordination note and does not override owner normative contracts or qualify public publication.
+
+## Raccordement fédéré diK — candidat (23 novembre 2026)
+
+Voir [`docs/DIK_FEDERATED_REGISTRY_BOUNDARY.md`](docs/DIK_FEDERATED_REGISTRY_BOUNDARY.md). Cette mise à jour fournit un précontrôle ou un index dérivé en lecture seule; aucune admission, migration ou publication n’est implicite.
